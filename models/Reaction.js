@@ -16,16 +16,7 @@ const reactionSchema = new Schema(
         }
     }
 );
-
-reactionSchema
-    .virtual('friendCount')
-    .get(function() {
-        return this.friends.length;
-    })
-    .set(function(v) {
-        this.set(v);
-    });
     
-const Reaction = model('user', reactionSchema);
+const Reaction = model('reaction', reactionSchema);
 
 export default Reaction;

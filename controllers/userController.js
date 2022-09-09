@@ -31,11 +31,31 @@ const createOneUser = async (req, res) => {
 };
 
 const updateOneUser = async (req, res) => {
-
+    try {
+        const updateUser = await User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+        );
+        !updateUser ? res.status(404).json({ message: 'No user with that ID' }) : res.status(200).json(updateUser);    
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 };
 
 const removeOneUser = async (req, res) => {
-
+    try {
+        const deleteUser = await User.findOneAndRemove({ _id: req.params.userId });
+        console.log(deleteUser);
+        !deleteUser 
+            ? res.status(404).json({ message: 'No user with that ID' })
+            :await Thought.deleteMany({ _id: { $in: deleteUser.thoughts}});
+        res.status(200).json({ message: 'User and associated thoughts deleted!'});    
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 };
 
 const addFriend = async (req, res) => {

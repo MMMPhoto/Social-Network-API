@@ -40,7 +40,17 @@ const getOneThought = async (req, res) => {
 };
 
 const updateOneThought = async (req, res) => {
-
+    try {
+        const updateThought = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+        );
+        !updateThought ? res.status(404).json({ message: 'No thought with that ID' }) :res.status(200).json(updateThought);    
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 };
 
 const removeOneThought = async (req, res) => {

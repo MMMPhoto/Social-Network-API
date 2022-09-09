@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
+import reactionSchema from "./Reaction.js";
 
 const thoughtSchema = new Schema(
     {
@@ -8,7 +9,7 @@ const thoughtSchema = new Schema(
             // get: (date) => timeSince(date)
         },
         username: {type: String, required: true},
-        reactions: [{type: Schema.Types.ObjectId, ref: 'reaction'}]
+        reactions: [reactionSchema]
     },
     {
         timestamps: true,

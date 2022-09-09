@@ -16,6 +16,14 @@ const getOneUser = async (req, res) => {
 };
 
 const createOneUser = async (req, res) => {
+    try {
+        const newUser = await User.create(req.body);
+        console.log(newUser);
+        res.status(200).json(newUser);    
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
 
 };
 

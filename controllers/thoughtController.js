@@ -1,4 +1,4 @@
-import { Thought, Reaction } from '../models/index.js';
+import { Thought, Reaction, User } from '../models/index.js';
 
 const getAllThoughts = async (req, res) => {
     try {
@@ -14,7 +14,13 @@ const getAllThoughts = async (req, res) => {
 const createNewThought = async (req, res) => {
     try {
         const newThought = await Thought.create(req.body);
-        res.status(200).json(newThought);    
+        console.log(newThought);
+        const thoughtUser = await User.findOneAndUpdate(
+            { _id: req.body.userId },
+            { $addToSet: { thoughts: newThought._id } },
+            { new: true }
+        );
+        !thoughtUser ? res.status(404).json({ message: 'Thought added, but no User found with that ID' }) : res.status(200).json(newThought);   
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

@@ -8,6 +8,12 @@ const userSchema = new Schema(
         email: {type: String, unique: true, required: true, validate: [ isEmail, 'invalid email' ]},
         thoughts: [{type: Schema.Types.ObjectId, ref: 'thought'}],
         friends: [{type: Schema.Types.ObjectId, ref: 'user'}]
+    },
+    {
+        toJSON: {
+            getters: true,
+            virtuals: true
+        }
     }
 );
 

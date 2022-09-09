@@ -12,7 +12,10 @@ const getAllUsers = async (req, res) => {
 
 const getOneUser = async (req, res) => {
     try {
-        const oneUser = await User.findOne({ _id: req.params.userId });
+        const oneUser = await User.findOne({ _id: req.params.userId })
+            .populate({ path: 'thoughts', options: {strictPopulate: false}})
+            .populate({ path: 'friends', options: {strictPopulate: false}})
+        console.log(oneUser);
         !oneUser ? res.status(404).json({ message: 'No user with that ID' }) : res.status(200).json(oneUser);    
     } catch (err) {
         console.log(err);

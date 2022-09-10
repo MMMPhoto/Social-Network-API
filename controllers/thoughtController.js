@@ -3,7 +3,6 @@ import { Thought, Reaction, User } from '../models/index.js';
 const getAllThoughts = async (req, res) => {
     try {
         const allThoughts = await Thought.find();
-        console.log(allThoughts);
         res.status(200).json(allThoughts);    
     } catch (err) {
         console.log(err);
@@ -14,7 +13,6 @@ const getAllThoughts = async (req, res) => {
 const createNewThought = async (req, res) => {
     try {
         const newThought = await Thought.create(req.body);
-        console.log(newThought);
         const thoughtUser = await User.findOneAndUpdate(
             { _id: req.body.userId },
             { $addToSet: { thoughts: newThought._id } },
@@ -54,10 +52,30 @@ const updateOneThought = async (req, res) => {
 };
 
 const removeOneThought = async (req, res) => {
-
+    try {
+        const deleteThought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
+        !deleteThought 
+            ? res.status(404).json({ message: 'No thought with that ID' })
+            : await User.findOneAndRemove({ _id: deleteThought._id });
+        res.status(200).json({ message: 'Thought deleted!'});    
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 };
 
 const createReaction = async (req, res) => {
+    try {
+        const newReaction = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: req.body }},
+            { new: true }
+        );
+        !newReaction ? res.status(404).json({ message: 'No thought with that ID' }) : res.status(200).json(newReaction);   
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 
 };
 

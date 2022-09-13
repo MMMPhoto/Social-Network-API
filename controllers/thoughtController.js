@@ -1,4 +1,4 @@
-import { Thought, Reaction, User } from '../models/index.js';
+import { Thought, User } from '../models/index.js';
 
 const getAllThoughts = async (req, res) => {
     try {
@@ -76,10 +76,23 @@ const createReaction = async (req, res) => {
         console.log(err);
         res.status(500).json(err);
     };
-
 };
 
 const removeReaction = async (req, res) => {
+    try {
+        const deleteReaction = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: { reactionId: req.body.reactionId } } },
+            { new: true }
+        );
+        console.log(deleteReaction);
+        !deleteReaction
+            ? res.status(404).json({ message: 'No thought with that ID' })
+            : res.status(200).json({ message: 'Reaction deleted!'});    
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 
 };
 

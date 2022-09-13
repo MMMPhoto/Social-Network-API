@@ -2,7 +2,9 @@ import { User, Thought } from '../models/index.js';
 
 const getAllUsers = async (req, res) => {
     try {
-        const allUsers = await User.find();
+        const allUsers = await User.find()
+        .populate({ path: 'thoughts', options: {strictPopulate: false}})
+        .populate({ path: 'friends', options: {strictPopulate: false}});
         res.status(200).json(allUsers);    
     } catch (err) {
         console.log(err);

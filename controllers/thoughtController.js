@@ -54,10 +54,10 @@ const updateOneThought = async (req, res) => {
 const removeOneThought = async (req, res) => {
     try {
         const deleteThought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
+        console.log(deleteThought);
         !deleteThought 
             ? res.status(404).json({ message: 'No thought with that ID' })
-            : await User.findOneAndRemove({ _id: deleteThought._id });
-        res.status(200).json({ message: 'Thought deleted!'});    
+            : res.status(200).json({ message: 'Thought deleted!'});
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

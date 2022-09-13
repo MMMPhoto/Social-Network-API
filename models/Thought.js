@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 const { Schema, model, Types } = mongoose;
-// import reactionSchema from "./Reaction.js";
 
 const reactionSchema = new Schema(
     {

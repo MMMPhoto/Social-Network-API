@@ -16,7 +16,7 @@ const createNewThought = async (req, res) => {
         const thoughtUser = await User.findOneAndUpdate(
             { _id: req.body.userId },
             { $addToSet: { thoughts: newThought._id } },
-            { new: true }
+            { runValidators: true, new: true }
         );
         !thoughtUser ? res.status(404).json({ message: 'Thought added, but no User found with that ID' }) : res.status(200).json(newThought);   
     } catch (err) {

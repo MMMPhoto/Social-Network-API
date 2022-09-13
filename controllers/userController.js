@@ -53,7 +53,7 @@ const removeOneUser = async (req, res) => {
         const deleteUser = await User.findOneAndRemove({ _id: req.params.userId });
         !deleteUser 
             ? res.status(404).json({ message: 'No user with that ID' })
-            :await Thought.deleteMany({ _id: { $in: deleteUser.thoughts}});
+            : await Thought.deleteMany({ _id: { $in: deleteUser.thoughts}});
         res.status(200).json({ message: 'User and associated thoughts deleted!'});    
     } catch (err) {
         console.log(err);
@@ -62,7 +62,20 @@ const removeOneUser = async (req, res) => {
 };
 
 const addFriend = async (req, res) => {
-
+    try {
+        const addFriend = await User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $addToSet: { friends: req.params.friendId }},
+            { runValidators: true, new: true }           
+        );
+        console.log(addFriend);
+        !addFriend
+            ? res.status(404).json({ message: 'No user with that ID' })
+            : res.status(200).json({ message: 'Friend added' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 };
 
 const removeFriend = async (req, res) => {

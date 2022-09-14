@@ -30,7 +30,7 @@ const getOneThought = async (req, res) => {
         const oneThought = await Thought.findOne({ _id: req.params.thoughtId })
             .populate('username');
         console.log(oneThought);
-        !oneThought ? res.status(404).json({ message: 'No user with that ID' }) : res.status(200).json(oneThought);    
+        !oneThought ? res.status(404).json({ message: 'No thought with that ID' }) : res.status(200).json(oneThought);    
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

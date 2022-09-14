@@ -44,7 +44,7 @@ const updateOneThought = async (req, res) => {
             { $set: req.body },
             { runValidators: true, new: true }
         );
-        !updateThought ? res.status(404).json({ message: 'No thought with that ID' }) :res.status(200).json(updateThought);    
+        !updateThought ? res.status(404).json({ message: 'No thought with that ID' }) : res.status(200).json(updateThought);    
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -55,9 +55,7 @@ const removeOneThought = async (req, res) => {
     try {
         const deleteThought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
         console.log(deleteThought);
-        !deleteThought 
-            ? res.status(404).json({ message: 'No thought with that ID' })
-            : res.status(200).json({ message: 'Thought deleted!'});
+        !deleteThought ? res.status(404).json({ message: 'No thought with that ID' }) : res.status(200).json({ message: 'Thought deleted!'});
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -85,9 +83,7 @@ const removeReaction = async (req, res) => {
             { $pull: { reactions: { reactionId: req.body.reactionId } } },
             { new: true }
         );
-        !deleteReaction
-            ? res.status(404).json({ message: 'No thought with that ID' })
-            : res.status(200).json({ message: 'Reaction deleted!'});    
+        !deleteReaction ? res.status(404).json({ message: 'No thought with that ID' }) : res.status(200).json({ message: 'Reaction deleted!'});    
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

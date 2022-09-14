@@ -69,9 +69,7 @@ const addFriend = async (req, res) => {
             { runValidators: true, new: true }           
         );
         console.log(addFriend);
-        !addFriend
-            ? res.status(404).json({ message: 'No user with that ID' })
-            : res.status(200).json({ message: 'Friend added' });
+        !addFriend ? res.status(404).json({ message: 'No user with that ID' }) : res.status(200).json(addFriend);
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -86,9 +84,7 @@ const removeFriend = async (req, res) => {
             { runValidators: true, new: true }
         );
         console.log(deleteFriend);
-        !deleteFriend
-            ? res.status(404).json({ message: 'No user with that ID' })
-            : res.status(200).json({ message: 'Friend deleted!'});    
+        !deleteFriend ? res.status(404).json({ message: 'No user with that ID' }) : res.status(200).json({ message: 'Friend deleted!'});    
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

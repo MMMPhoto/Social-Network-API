@@ -79,7 +79,20 @@ const addFriend = async (req, res) => {
 };
 
 const removeFriend = async (req, res) => {
-
+    try {
+        const deleteFriend = await User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: req.params.friendId } },
+            { runValidators: true, new: true }
+        );
+        console.log(deleteFriend);
+        !deleteFriend
+            ? res.status(404).json({ message: 'No user with that ID' })
+            : res.status(200).json({ message: 'Friend deleted!'});    
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 };
 
 export {getAllUsers, getOneUser, createOneUser, updateOneUser, removeOneUser, addFriend, removeFriend};

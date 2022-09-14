@@ -85,7 +85,6 @@ const removeReaction = async (req, res) => {
             { $pull: { reactions: { reactionId: req.body.reactionId } } },
             { new: true }
         );
-        console.log(deleteReaction);
         !deleteReaction
             ? res.status(404).json({ message: 'No thought with that ID' })
             : res.status(200).json({ message: 'Reaction deleted!'});    

@@ -48,4 +48,4 @@ Github: [MMMPhoto](https://github.com/MMMPhoto)
 
 --------------------------------------
 
-### &copy; 2022 Max McDonough)
+### &copy; 2022 Max McDonough

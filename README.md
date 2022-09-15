@@ -26,11 +26,11 @@ To run the app, simply type "npm start" in the command line of the root folder. 
 
 [Video walkthrough of Using the App](https://drive.google.com/file/d/10hrM5UrXzrYdhK5o7Iq1sL0WKy5Y7UzT/view)
 
-![Usage Screenshot 1](./assets/images/social-network-api-screenshot-1.png?raw=true)
+![Usage Screenshot 1](./assets/social-network-api-screenshot-1.png?raw=true)
 
-![Usage Screenshot 2](./assets/images/social-network-api-screenshot-2.png?raw=true)
+![Usage Screenshot 2](./assets/social-network-api-screenshot-2.png?raw=true)
   
-![Usage Screenshot 3](./assets/images/social-network-api-screenshot-3.png?raw=true)
+![Usage Screenshot 3](./assets/social-network-api-screenshot-3.png?raw=true)
 
 ## Features
 
